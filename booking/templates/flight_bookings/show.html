@@ -1,0 +1,65 @@
+{%extends 'base.html'%}
+</head>
+{% block head %}
+    <title>Show Page</title>
+    {% endblock %}
+  <body>
+  {%block body%}
+<form class="formValidate" id="formValidate" method="post" action="seat/">{% csrf_token %}
+  <div class="row " style="height:50px;"></div>
+
+  <div class="row">
+   <div class="col s12">
+     <div class=" col s8 offset-s2 ">
+
+       <div class="card center-align">
+     <div class="card white">
+      <div class="card-content black-text">
+<span class="card-title">Available Flights</span>
+      <table class="striped">
+  <thead>
+    <tr>
+        <th>Air LInes</th><th>Departure</th><th>Arrival</th><th>Duration</th><th>Cost</th><th>Seats Left</th>
+        <th>BOOK</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    {% for k,v in all.items %}
+
+    <tr>
+      <td>{{ v.airlines }} {{ k }}</td>
+      <td>{{ v.depart }}</td>
+      <td>{{ v.arrival }}</td>
+      <td>{{ v.duration }}</td>
+      <td>{{ v.cost }}</td>
+      <td>{{ v.seats }}</td>
+      <td>  <button class="btn waves-effect waves-light" type="submit" name="{{ k }}" >
+     <i class="material-icons">send</i>
+   </button></td>
+
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+
+
+      </div>
+
+     <div class="row " style="height:5px;"></div>
+     <div class="row">
+
+</div>
+
+  </div>
+
+ <div class="row " style="height:50px;"></div>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+</form>
+
+  {%endblock%}

@@ -1,0 +1,97 @@
+{%extends 'base.html'%}
+</head>
+{% block head %}
+    <title>Signup Page</title>
+    {% endblock %}
+  <body>
+  {%block body%}
+  <div class="row " style="height:80px;"></div>
+  <div id="jqueryvalidation" class="section center-align">
+            <div class="row">
+            <div class=" col s6 offset-s3 ">
+                  <div class="card center-align">
+                    <div class="card-content">
+                            <span class="card-title"><h4>SignUp</h4></span>
+                            <div class="row">
+                                <form class="formValidate" id="formValidate" method="post" action="postsignup/">{% csrf_token %}
+                                    <div class="row">
+
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">face</i>
+                                            <label for="uname">Fullname *</label>
+                                            <input id="uname" name="uname" type="text" data-error=".errorTxt1">
+                                            <div class="errorTxt1"></div>
+                                        </div>
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">settings_phone</i>
+                                            <label for="unumber">PhoneNumber *</label>
+                                            <input id="unumber" name="unumber" type="text" data-error=".errorTxt9">
+                                            <div class="errorTxt9"></div>
+                                        </div>
+                                        <div class="input-field col s12">
+                                          <i class="material-icons prefix">email</i>
+                                          <label for="cemail">E-Mail *</label>
+                                          <input id="cemail" type="email" name="cemail" data-error=".errorTxt2">
+                                          <div class="errorTxt2"></div>
+                                        </div>
+                                        <div class="input-field col s12">
+                                          <i class="material-icons prefix">lock_outline</i>
+                                          <label for="password">Password *</label>
+                                          <input id="password" type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" data-error=".errorTxt3">
+                                          <div class="errorTxt3"></div>
+                                        </div>
+                                        <div class="input-field col s12">
+                                          <i class="material-icons prefix">lock</i>
+                                          <label for="cpassword">Confirm Password *</label>
+                                          <input id="cpassword" type="password" name="cpassword" data-error=".errorTxt4">
+                                          <div class="errorTxt4"></div>
+                                        </div>
+                                        <div class="col s12">
+                                            <div class="col s6">
+                                              <label for="genter_select">Gender *</label>
+                                            </div>
+                                            <p>
+                                              <br>
+                                              <input name="cgender" type="radio" id="gender_male" value="male" checked />
+                                              <label for="gender_male">Male</label>
+                                            </p>
+                                            <p>
+                                              <input name="cgender" type="radio" id="gender_female" value="female" />
+                                              <label for="gender_female">Female</label>
+                                            </p>
+                                            <div class="input-field">
+                                                <div class="errorTxt8"></div>
+                                            </div>
+                                  </div>
+                                  <br>
+                                  <br>
+                                  <div class="col s12">
+                                    <div class="col s6" >
+                                      <label for="tnc_select">T&C *</label>
+                                      </div>
+                                      <br>
+                                      <p>
+                                          <input type="checkbox" class="checkbox" id="cagree" name="cagree" data-error=".errorTxt9" />
+                                          <label for="cagree">Please agree to our policy</label>
+                                       </p>
+                                            <div class="input-field">
+                                                <div class="errorTxt6"></div>
+                                            </div>
+                                  </div>
+                                        <div class="input-field col s12">
+                                            <button class="btn waves-effect waves-light right submit" type="submit" name="action">Submit
+                                              <i class="mdi-content-send right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+{%endblock%}

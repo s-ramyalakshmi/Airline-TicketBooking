@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+#define LL long long
+#define L long
+#define I int
+#define LD long double
+#define m(a,b) memset(a,b,sizeof(a))
+#define mp make_pair
+#define pb push_back
+#define MAX 1000000007
+#define INF (1e18 + 1)
+#define height_segTree(n) (int)(ceil(log2(n)))
+#define max_size_segTree(n) 2*(int)pow(2, height_segTree(n)) - 1;
+
+#define cint(d) scanf("%d", &d)
+#define clong(d) scanf("%lld", &d)
+#define cslong(d) scanf("%ld", &d)
+#define pf printf
+
+#define FOR(i, s, n) for(LL i = s; i < n; i++)
+#define FORR(i, n, s) for(I i = n-1; i >= s; i--)
+#define v(i) vector<i>
+#define N 1100
+using namespace std;
+I ar[N][N];
+I visited[200010];
+I going[200010];
+vector<int> vec[200010];
+vector<int> ans;
+stack<I> stae;
+I found = 0;
+I n;
+
+void dfs(I s) {
+    if(found)
+        return;
+    
+    if(going[s]) {
+        stae.push(s);
+        found = 1;
+        return;
+    }
+    
+    if(visited[s])
+        return;
+    
+    stae.push(s);
+    going[s] = 1;
+    visited[s] = 1;
+    for(auto i: vec[s]) {
+        dfs(i);
+    }
+    if(!stae.size() && found == 0)
+    stae.pop();
+    going[s] = 0;
+}
+
+int main() {
+    I t;
+    cint(t);
+    while(t--) {
+        found = 0;
+        ans.clear();
+        FOR(i, 0, 200002) {
+            vec[i].clear();
+            going[i] = 0;
+            visited[i] = 0;
+        }
+        I n, m, t1, t2;
+        cint(n);
+        cint(m);
+        FOR(i, 0, m) {
+            cint(t1);
+            cint(t2);
+            vec[t1].pb(t2);
+        }
+        dfs(1);
+        if(found == 0) {
+            cout<<"NO\n";
+            while(!stae.empty()) {
+                cout<<stae.top()<<endl;
+                stae.pop();
+            }
+        } else {
+            cout<<"YES\n";
+        }
+        
+    }
+    
+}

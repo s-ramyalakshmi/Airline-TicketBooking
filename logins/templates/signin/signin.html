@@ -1,0 +1,62 @@
+{%extends 'base.html'%}
+{% if error %}
+<script >
+        alert('{{ error }}');
+
+</script>
+{% endif %}
+</head>
+	{% block head %}
+    	<title>Login Page</title>
+    {% endblock %}
+  <body>
+  {%block body%}
+  <div class="row " style="height:100px;"></div>
+  <div class="row ">
+                <div class=" col s6 offset-s3 ">
+                  <div class="card center-align">
+                    <div class="card-content">
+                      <span class="card-title"><h3>SignIn</h3></span>
+
+                        <form class="container " method="post" action="postsignin/">
+                          <div class = "row">
+                            {% csrf_token %}
+
+                            <div class="input-field inline col s12">
+                              <i class="material-icons prefix">email</i>
+                              <input id="email" type="email" class="validate" name="email">
+                              <label class="center-align active" for="email" data-error="wrong" data-success="right">Email</label>
+
+                            </div>
+                            <div class="input-field col s12">
+                            <i class="material-icons prefix">security</i>
+					                  <input id="password" type="password" class="validate" name="password">
+					                  <label for="password">Password</label>
+        					</div>
+                            <div class="input-field col m6">
+                              <button class="btn waves-effect waves-light" name="action" onClick="setTimeout(Materialize.toast('Please verify your email id ', 4000)", 3000)>
+                                Login<i class="material-icons right">send</i>
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+  <script type="text/javascript">
+
+    //custom JS code
+     $(document).ready(function(){
+       Materialize.toast('kkkkk', 4000);
+    });
+  </script>
+{%endblock%}
+
+

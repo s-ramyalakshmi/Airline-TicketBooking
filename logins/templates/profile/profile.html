@@ -1,0 +1,193 @@
+{%extends 'base.html'%}
+{% load qr_code %}
+{% if error %}
+<script >
+        alert('{{ error }}');
+
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta charset="utf-8">
+    {% block head %}
+      <title>Profile Page</title>
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'white.css'%}" type = "text/css">
+  </head>
+
+  <body>
+    {% block body %}
+    <div class = "row"></div>
+    <div class="row">
+
+      <div class="col s12 m4 l3"> <!-- Note that "m4 l3" was added -->
+        <div class="card">
+        <div class="card-image">
+          <img src="{{ url }}">
+          <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
+        <div class="card-content">
+
+          <form form method="post" action= "simple_upload/" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Browse</span>
+                <input type="file" name="myfile" id="myfile">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="uploadimage" id="uploadimage">
+
+              </div>
+            </div>
+            <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                      Upload Image<i class="material-icons right">send</i>
+            </button>
+            {% if uploaded_file_url %}
+              <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+            {% endif %}
+            </div>
+          </form>
+          <!---{% block content %}
+  <form form method="post" action= "simple_upload/" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile">
+    <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                      Upload Image<i class="material-icons right">send</i>
+            </button>
+    </div>
+  </form>
+
+  {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %}-->
+
+{% endblock %}
+        </div>
+      </div>
+
+      </div>
+
+      <div class="col s12 m8 l9"> <!-- Note that "m8 l9" was added -->
+        <div class="card center-align">
+            <div class="card-content">
+              <span class="card-title">My profile</span>
+              
+              <form id= "firstform" method="post" action="updateprofile/" >{% csrf_token %}
+              
+                <div class="row " style="height:30px;"></div>
+                <div class = "row">
+                  {% csrf_token %}
+                    <div class="col s1"></div>
+                    <div class="input-field col s4">
+                      <i class="material-icons prefix">account_circle</i>
+                      <input disabled id="FullName" name="FullName" type="text" class="validate" value="{{ name }}">
+                      <label for="FullName">Full Name</label>
+                    </div>
+                    <div class="col s1" style="font-size: 50px;">
+                      <a class="waves-effect waves-teal btn-flat left-allign" id="FullNameButton" style="padding: 0px 0px 0px 0px;"><i class="material-icons prefix" style="font-size: 30px;">create</i></a>
+                    </div>
+                    <div class="input-field col s4">
+                      <i class="material-icons prefix">accessibility</i>
+                      <input disabled id="Gender" name="Gender" type="text" class="validate" value="{{ gender }}">
+                      <label for="Gender">Gender</label>
+                    </div>
+                    <div class="col s1" style="font-size: 50px;">
+                      <a class="waves-effect waves-teal btn-flat left-allign" id="GenderButton" value="disable/enable" style="padding: 0px 0px 0px 0px;"><i class="material-icons prefix" style="font-size: 30px;">create</i></a>
+                    </div>
+                    <div class="row" style="padding-bottom: 0px;"></div>
+                    <div class="col s1"></div>
+                    <div class="input-field col s4">
+                      <i class="material-icons prefix">email</i>
+                      <input disabled id="EmailId" name="EmailId" type="text" class="validate" value="{{ email }}">
+                      <label for="EmailId">Email Id</label>
+                    </div>
+                    <div class="col s1" style="font-size: 50px;">
+
+                    </div>
+                    <div class="input-field col s4">
+                      <i class="material-icons prefix">call</i>
+                      <input disabled id="PhoneNumber" name="PhoneNumber" type="text" class="validate" value="{{ number }}">
+                      <label for="PhoneNumber">Phone Number</label>
+                    </div>
+                    <div class="col s1" style="font-size: 50px;">
+                      <a class="waves-effect waves-teal btn-flat left-allign" id="PhoneNumberButton" value="disable/enable" style="padding: 0px 0px 0px 0px;"><i class="material-icons prefix" style="font-size: 30px;">create</i></a>
+                    </div>
+                    
+                    <div class="input-field col s3 offset-s8">
+                      <button class="btn waves-effect waves-light" form="firstform" type="submit" name="action">
+                      Update<i class="material-icons right">send</i>
+                      </button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row"></div>
+      <div class="row">
+        <div class="col s12 m4 l3"> <!-- Note that "m4 l3" was added -->
+        <div class="card">
+        <div class="card-content">
+
+          <form form method="post" action= "document_upload/" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="file-field input-field">
+              <div class="btn">
+                <span>Browse</span>
+                <input type="file" name="myfile" id="myfile">
+              </div>
+              <div class="file-path-wrapper">
+                <i class="material-icons prefix">save</i>
+                <input class="file-path validate" disabled id="document" name="document" type="text" class="validate" value="{{ document }}">
+              </div>
+            </div>
+            <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+                      Upload Document<i class="material-icons right">send</i>
+            </button>
+            {% if uploaded_file_url %}
+              <p>File uploaded at: <a href="{{ uploaded_file_urli }}">{{ uploaded_file_urli }}</a></p>
+            {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+        <div class="col s12 m8 l9"> <!-- Note that "m8 l9" was added -->
+        <div class="card center-align">
+            <div class="card-content">
+              <form class="container " method="post" action="resetpassword/">
+                <div class="row " style="height:30px;"></div>
+                <div class = "row">
+                  {% csrf_token %}
+                    <p>Password Reset</p>
+                    <div class="input-field col s12">
+                      <input id="email12" type="email" class="validate" name="email12">
+                      <label for="email12">Email</label>
+                    </div>
+                    <div class="input-field col m6">
+                      <button class="btn waves-effect waves-light" type="submit" name="action">
+                      Reset<i class="material-icons right">send</i>
+                      </button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+        </div>
+      </div>
+    {% endblock %}
+  </body>
+
+</html>

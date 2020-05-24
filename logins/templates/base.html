@@ -1,0 +1,197 @@
+{% if error %}
+<script >
+        alert('{{ error }}');
+
+</script>
+{% endif %}
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <meta charset="utf-8">
+    {% block head %}
+      <title>Base Page</title>
+    {% endblock %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'seat.css'%}" type = "text/css">
+    <link rel="stylesheet" href="{% static 'white.css'%}" type = "text/css">
+    <link rel="stylesheet" href="{% static 'prism.css'%}" type = "text/css">
+
+
+
+
+     <nav>
+    <div class="nav-wrapper container">
+      <a href="/" class="brand-logo">Ticketology</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/signin">SignIn</a></li>
+        <li><a href="/signup">SignUp</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/booking">Book</a></li>
+        <li><a href="/booking/details">My Ride</a></li>
+
+      </ul>
+    </div>
+  </nav>
+  </head>
+
+  <body>
+    {% block body %}
+
+      <div class="row " style="height:150px;"></div>
+      <div class="row ">
+        <div class=" col s6 offset-s3 ">
+          <div class="card center-align">
+            <div class="card-content">
+              <span class="card-title">Welcome to Ticketology</span>
+              <form class="container " method="post">
+                <div class="row " style="height:30px;"></div>
+                <div class = "row">
+                  {% csrf_token %}
+                  <div class="input-field col m6">
+                    <button class="btn btn-large waves-effect waves-light center-align" type="submit" name="action" formaction="signin/">
+
+                      Login<i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                  <div class="input-field col m6">
+                    <button class="btn red btn-large waves-effect waves-dark center-align" type="submit" name="action" formaction="signup/">
+                      Signup<i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    {% endblock %}
+    <!-- jQuery is required by Materialize to function -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="{% static 'jquery.validate.min.js'%}"></script>
+  <script type="text/javascript" src="{% static 'additional-methods.min.js'%}"></script>
+
+  <script type="text/javascript" src="{% static 'angular.min.js'%}"></script>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script type="text/javascript" src="{% static "js/autocomplete.js" %}"></script>
+  <script type="text/javascript">
+  $('#namebutton').click(function(){
+        $('#nametext').prop('disabled', false);
+  });
+</script>
+<script>
+
+$(document).ready(function(){
+    // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
+  });
+
+  $("#FullNameButton").click(function() {
+    $("#FullName").attr('disabled', false);
+  });
+  $("#GenderButton").click(function() {
+    $("#Gender").attr('disabled', !$("#Gender").attr('disabled'));
+  });
+  $("#EmailIdButton").click(function() {
+    $("#EmailId").attr('disabled', !$("#EmailId").attr('disabled'));
+  });
+  $("#PhoneNumberButton").click(function() {
+    $("#PhoneNumber").attr('disabled', !$("#PhoneNumber").attr('disabled'));
+  });
+</script>
+  <script type="text/javascript">
+
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+    $("#formValidate").validate({
+        rules: {
+            uname: {
+                required: true,
+                minlength:6
+            },
+            unumber: {
+                required: true,
+                minlength:10
+            },
+            cemail: {
+                required: true,
+                email:true
+            },
+            password: {
+        required: true,
+        minlength: 6
+      },
+      cpassword: {
+        required: true,
+        minlength: 6,
+        equalTo: "#password"
+      },
+      curl: {
+                required: true,
+                url:true
+            },
+            crole:"required",
+            ccomment: {
+        required: true,
+        minlength: 15
+            },
+            cgender:"required",
+      cagree:"required",
+        },
+        //For custom messages
+        messages: {
+            uname:{
+                required: "Enter a username",
+                minlength: "Enter at least 6 characters"
+            },
+            unumber:{
+                required: "Enter a number",
+                minlength: "Enter at least 10 digits"
+            },
+            curl: "Enter your website",
+        },
+        errorElement : 'div',
+        errorPlacement: function(error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        }
+     });
+    </script>
+  {% if mesg %}
+   {% for i in mesg %}
+
+  <script type="text/javascript">
+
+    //custom JS code
+     $(document).ready(function(){
+       Materialize.toast('{{ i }}', 4000);
+    });
+
+  </script>
+  {% endfor %}
+  {% endif %}
+  </body>
+
+
+</html>

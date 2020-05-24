@@ -1,0 +1,46 @@
+
+{%extends 'base.html'%}
+{% load qr_code %}
+</head>
+{% block head %}
+    <title>Previous_bookings</title>
+{% endblock %}
+{%block body%}
+<body>
+<div class="row">
+          <div class="row"></div>
+          <div class=" col s8 offset-s2 ">
+            <div class="card blue-grey darken-1">
+              <div class="card-content black-text">
+                <span class="card-title">Your Bookings</span>
+                <table class="striped">
+            <thead>
+              <tr>
+                  <th>From</th><th>To</th><th>Date</th>
+                  <th>Air Lines</th>
+                  <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspQR Codes</th>
+
+              </tr>
+            </thead>
+            {% for k,v in all.items %}
+            <tbody>
+
+
+              <tr>
+                <td>{{ v.from }}</td>
+                <td>{{ v.to }}</td>
+                <td>{{ v.date }}</td>
+                <td>{{ v.airlines }}</td>
+                <td>{% qr_for_contact contact_detail=v.contact_detail size='S' %}</td>
+              </tr>
+
+
+          </tbody>
+          {% endfor %}
+          </table>
+
+                </div>
+          </div>
+        </div>
+      </div>
+{%endblock%}

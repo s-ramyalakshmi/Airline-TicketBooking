@@ -1,0 +1,21 @@
+git checkout rishikeshwartest2
+
+git pull origin master
+
+git add logins/views.py
+
+git merge origin master
+
+git add .
+
+git commit -m "6:37 25feb"
+
+git merge master
+
+git checkout master
+
+git merge rishikeshwartest2
+
+git push origin master
+
+
